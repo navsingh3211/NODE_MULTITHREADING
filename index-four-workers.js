@@ -4,7 +4,7 @@ import {Worker} from 'worker_threads';
 
 const app = express();
 const port = 3000;
-const THREAD_COUNT = 4;
+const THREAD_COUNT = 4;//using 4 cores out of our 8 cores
 
 app.get("/non-blocking",async(req,res)=>{
   res.status(200).send("This page is non-blocking.");
@@ -32,7 +32,7 @@ app.get("/blocking",async(req,res)=>{
   for(let i=0;i<THREAD_COUNT;i++){
     workerPromises.push(createWorker());
   }
-  
+
   const thread_result = await Promise.all(workerPromises);
   const total = thread_result[0] + 
   thread_result[1] + 
